@@ -1,0 +1,691 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>說文解圖｜馬說</title><style>
+:root{--ink:#302c2a;--muted:#736a61;--paper:#fffdf8;--bg:#f3eee6;--brown:#8b5940;--line:#d8c8b6;--green:#397450}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #3874b4;outline-offset:3px}.app{max-width:900px;margin:auto;padding:14px 14px 40px}header{text-align:center;padding:8px 0 12px}.eyebrow{font-size:13px;color:var(--brown);letter-spacing:2px;font-weight:700}h1{font-size:clamp(22px,4vw,30px);margin:5px 0}header p{margin:4px;color:var(--muted);font-size:13px}.topline{display:flex;justify-content:space-between;gap:12px;font-size:14px;font-weight:700;margin:8px 0}.progress{height:8px;border-radius:12px;background:#dfd3c6;overflow:hidden}.progress>div{height:100%;background:#709c7c;transition:width .3s}.card,.library,.review{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 3px 14px #4e33200b}.card{margin-top:12px}.tag{font-size:13px;color:var(--brown);font-weight:800}.sentence{font-size:22px;line-height:1.7;letter-spacing:.025em;margin:9px 0 14px;font-weight:650}.target{height:148px;border:2px dashed #b88768;background:#f9f1e7;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;color:#92725e}.target .plus{font-size:36px;line-height:1}.target.filled{border-style:solid;background:#fff}.target.filled img{height:100%;max-width:100%;object-fit:contain;border-radius:8px}.library{margin-top:12px}.library-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px}.library h2,.review h2{font-size:18px;margin:0}.sub{font-size:12px;color:var(--muted);margin:5px 0 12px}.choices{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.choice{padding:3px;background:white;border:2px solid #e0d4c7;border-radius:9px;aspect-ratio:1;overflow:hidden;min-width:0}.choice img{width:100%;height:100%;object-fit:cover;display:block;border-radius:5px}.choice:active{transform:scale(.96)}.feedback{font-size:14px;font-weight:700;min-height:22px;margin:12px 0 0}.feedback.good{color:var(--green)}.feedback.bad{color:#b44937}.controls{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap}.controls button,.modal-actions button,.next{border:0;border-radius:10px;padding:11px 14px;font-weight:750}.controls button{background:#e8ddd0;color:#4a3a30;font-size:14px}.overlay{position:fixed;inset:0;background:#1d1919b9;display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.overlay.show{display:flex}.modal{width:min(100%,440px);background:#fffdf8;border-radius:18px;padding:16px;box-shadow:0 12px 55px #0004}.modal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.modal-top strong{font-size:18px}.close{border:0;background:#eee6dc;border-radius:50%;width:34px;height:34px;font-size:23px}.preview{display:block;width:min(100%,min(56vh,370px));aspect-ratio:1;object-fit:contain;margin:auto;border-radius:10px;background:#f2e9de}.modal-actions{display:flex;gap:9px;margin-top:14px}.modal-actions button{flex:1}.cancel{background:#eee6dc;color:#51443a}.confirm,.next{background:#8b5940;color:#fff}.review{margin-top:14px;display:none}.review.show{display:block}.review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}.review-item{border:1px solid var(--line);border-radius:12px;padding:9px;background:white}.review-item img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:7px}.review-item p{font-size:16px;line-height:1.65;margin:8px 0 0}.review-item small{color:var(--brown)}.next{width:100%;margin-top:5px}.note{font-size:12px;color:var(--muted);margin-top:14px;text-align:center}@media(min-width:680px){.app{padding:22px}.play-area{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:16px;align-items:start}.card,.library{margin-top:16px}.choices{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.target{height:230px}.review-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}@media(min-width:1000px){.app{max-width:1120px}.choices{grid-template-columns:repeat(6,minmax(0,1fr))}}@media(max-width:360px){.app{padding:10px}.card,.library{padding:11px}.choices{gap:5px}.sentence{font-size:21px}}
+
+/* V2.7：保留既有功能，新增速度獎勵與 Combo */
+@media (max-width:679px){
+  .app{padding:10px 12px 28px}
+  header{padding:3px 0 8px}
+  .card,.library{padding:12px;margin-top:10px}
+  .sentence{font-size:22px;line-height:1.65;margin:10px 0 12px}
+  .target{height:auto;min-height:48px;padding:9px 12px;flex-direction:row;gap:8px;font-size:15px}
+  .target .plus{font-size:22px;line-height:1}
+  .target.filled{height:auto;min-height:48px;max-height:220px;padding:8px}
+  .target.filled img{max-height:200px;width:auto;max-width:100%;object-fit:contain}
+  .feedback{min-height:0;margin:7px 0 0}
+  .feedback:empty{display:none}
+  .choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .choice{padding:4px;border-radius:12px}
+  .choice img{border-radius:8px}
+  .sub{margin:4px 0 10px}
+  .controls{margin-top:12px}
+  .note{margin-top:10px}
+}
+@media (min-width:680px){
+  .target{height:auto;min-height:62px;padding:10px;flex-direction:row;font-size:16px}
+  .target .plus{font-size:24px}
+  .target.filled{height:220px}
+  .choices{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (min-width:1000px){.choices{grid-template-columns:repeat(6,minmax(0,1fr))}}
+
+.choices{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+@media(max-width:679px){.app{padding-bottom:32px}.choice{touch-action:manipulation}.review-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#complete .review-grid{grid-template-columns:repeat(2,minmax(0,1fr))}@media(min-width:680px){#complete .review-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}@media print{#complete .review-grid{grid-template-columns:repeat(4,1fr)}button{display:none!important}}
+
+/* V2.9：手動確認得分框、放大總分、5秒 Combo 倒數 */
+#score{font-size:clamp(22px,4vw,30px);line-height:1.15;font-weight:950;white-space:nowrap}
+.score-burst{pointer-events:auto;min-width:min(88vw,360px);max-width:92vw;padding:20px 22px 18px;transform:translate(-50%,-50%) scale(.92);opacity:0;display:none}
+.score-burst.show{display:block;opacity:1;animation:scoreModalIn .24s cubic-bezier(.2,.9,.25,1) both}
+@keyframes scoreModalIn{0%{opacity:0;transform:translate(-50%,-46%) scale(.82)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+.score-burst .score-main{font-size:clamp(22px,6vw,34px);line-height:1.3;white-space:normal;text-shadow:none}
+.score-lines{display:grid;gap:10px;text-align:left;margin:2px 0 16px;font-size:clamp(20px,5.3vw,30px);line-height:1.25;font-weight:950}
+.score-line{display:flex;justify-content:space-between;align-items:center;gap:18px}
+.score-line .label{white-space:nowrap}.score-line .value{white-space:nowrap}
+.score-confirm{display:block;margin:4px auto 0;border:0;border-radius:999px;padding:10px 30px;min-width:118px;background:#fff;color:#77442f;font-weight:950;font-size:18px;box-shadow:0 3px 10px #0002}
+.score-burst.negative .score-confirm{color:#9a2629}.score-burst.neutral .score-confirm{color:#6f523a}
+.score-burst .score-sub{display:none}
+.combo-badge{transition:opacity .08s linear,transform .2s ease}
+.combo-badge.combo-hidden{opacity:0;visibility:hidden}
+
+/* v3.1：排行榜榮譽化＋我的名次 */
+.lb-me-card{margin:14px 0 16px;padding:15px 16px;border:2px solid #6e9a78;border-radius:18px;background:#f1f8f1;display:none}
+.lb-me-card.show{display:block}.lb-me-title{font-size:14px;font-weight:800;color:#5c765f;margin-bottom:6px}.lb-me-rank{font-size:clamp(24px,5vw,34px);font-weight:950;color:#2f6845;line-height:1.15}.lb-me-score{font-size:18px;font-weight:900;margin-top:5px}.lb-me-goal{margin-top:7px;color:#7b5a45;font-weight:750;line-height:1.55}
+.lb-podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:12px 0 16px;align-items:end}.podium-card{border-radius:18px;padding:13px 8px;text-align:center;border:2px solid #d8c8b6;background:#fffdf8;min-width:0;box-shadow:0 6px 16px rgba(70,50,30,.08)}.podium-card.first{padding-top:20px;padding-bottom:20px;border-color:#d6aa35;background:linear-gradient(180deg,#fff9d9,#fffdf8);order:2}.podium-card.second{border-color:#aeb4bb;background:linear-gradient(180deg,#f3f5f7,#fffdf8);order:1}.podium-card.third{border-color:#b77b50;background:linear-gradient(180deg,#f8e7db,#fffdf8);order:3}.podium-card.me{box-shadow:0 0 0 4px rgba(76,137,91,.22),0 6px 16px rgba(70,50,30,.1)}.podium-medal{font-size:32px;line-height:1}.podium-title{font-size:12px;font-weight:900;color:#8b5940;margin:5px 0}.podium-name{font-size:17px;font-weight:950;overflow-wrap:anywhere}.podium-score{font-size:18px;font-weight:950;color:#397450;margin-top:5px}.podium-crown{font-size:22px;margin-bottom:2px}
+.lb-section-title{font-size:14px;font-weight:900;color:#8b5940;margin:10px 0 6px}.lb-row.toplist{grid-template-columns:54px 1fr auto}.lb-row.toplist .lb-rank{font-size:16px}
+@media(max-width:520px){.lb-podium{gap:6px}.podium-card{padding:11px 5px}.podium-card.first{padding-top:17px;padding-bottom:17px}.podium-name{font-size:14px}.podium-score{font-size:15px}.podium-medal{font-size:27px}}
+
+/* v3.2：排行榜隨時可看＋我的排名固定最上方 */
+.lb-me-card{margin:8px 0 12px!important;padding:18px 18px!important;border:3px solid #5f8f69!important;background:linear-gradient(180deg,#eef8ef,#fffdf8)!important;box-shadow:0 8px 22px rgba(61,111,73,.16)}
+.lb-me-title{font-size:15px!important;letter-spacing:.04em}.lb-me-rank{font-size:clamp(28px,6vw,40px)!important}.lb-me-score{font-size:20px!important}.lb-me-empty{font-size:16px;font-weight:800;color:#6f655d;line-height:1.65}.lb-current-player{font-size:13px;color:#5c765f;font-weight:800;margin-top:4px}
+.start-leaderboard{margin-top:10px!important;background:#6f8150!important;width:100%}
+.sort-leaderboard{display:block;width:100%;margin:10px 0 4px!important;background:#6f8150!important}
+.academy-finish{margin:18px 0;padding:18px;border:2px solid #cfb37a;border-radius:16px;background:linear-gradient(120deg,#fff8e7,#f8e7c6);color:#624826;box-shadow:0 5px 14px #99723d22}.academy-finish strong{font-size:21px;display:block;margin:0 0 6px}.academy-finish .academy-line{font-size:15px;line-height:1.7;margin:5px 0}.academy-finish .academy-new{font-size:15px;font-weight:850;color:#79502b;margin-top:9px}</style><style>
+.translate-btn{display:block;margin:-3px 0 10px;padding:9px 12px;border:1px solid #cbb49e;background:#f6eee3;border-radius:9px;color:#755038;font-weight:700}
+.translation{background:#f6eee3;border-left:4px solid #ad8465;padding:12px;margin-bottom:12px;border-radius:6px;line-height:1.75;font-size:16px}.translation[hidden]{display:none}
+.sort-subtitle{font-size:16px;margin:17px 0 9px}.sort-slots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.sort-pool{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.sort-slot{border:2px dashed #cbb7a2;border-radius:10px;padding:4px 6px;min-height:0;background:#fffaf3}.sort-slot.locked{border:2px solid #5b9970;background:#f0f8f0}.sort-position{font-size:13px;color:#7c5a40;font-weight:800;margin:3px 0 6px}.sort-empty{height:12px;display:grid;place-items:center;color:#9a8575;font-size:11px}.sort-slot:has(.sort-empty){padding:2px 5px}.sort-slot:has(.sort-empty) .sort-position{margin:0;line-height:20px}.sort-slot:has(.sort-empty) .sort-empty{display:none}.sort-slot:has(.sort-card){padding:6px}.sort-slot:has(.sort-card) .sort-card img{aspect-ratio:1}.sort-card{display:block;width:100%;background:#fff;border:1px solid #dacbbc;border-radius:10px;padding:6px;text-align:left;color:var(--ink)}.sort-card img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:7px}.sort-card span{display:block;font-size:14px;line-height:1.55;padding:7px 2px 3px;overflow-wrap:anywhere}.sort-card:disabled{opacity:1;cursor:default}.sort-slot.locked .sort-card{background:#f1f8f1}.review-translation{font-size:13px!important;color:#80624d;line-height:1.65!important;margin-top:6px!important;border-top:1px dashed #ddcbbb;padding-top:7px}.next:disabled{opacity:.4;cursor:not-allowed}.sort-assists{display:grid;grid-template-columns:1fr;gap:9px;margin:10px 0 4px}.sort-assists:not(:has(button:not([hidden]))){display:none}.sort-assists .next{margin-top:0}.sort-assists #sortHint{background:#6f8150}.sort-assists #sortRescue{background:#70665f}
+@media(min-width:680px){.sort-slots{grid-template-columns:repeat(4,minmax(0,1fr))}.sort-pool{grid-template-columns:repeat(4,minmax(0,1fr))}}
+/* 音樂控制列固定三欄：音樂按鈕從載入開始就固定在右側 */
+.controls{display:grid;grid-template-columns:auto auto minmax(0,1fr);align-items:stretch}
+.controls button{min-width:0;white-space:nowrap}
+#music{width:100%}
+@media(max-width:679px){.controls{gap:6px}.controls button{font-size:12px;padding:9px 7px}}
+
+/* V2.5：中央加扣分回饋 */
+.score-burst{position:fixed;left:50%;top:48%;transform:translate(-50%,-50%) scale(.65);z-index:60;pointer-events:none;opacity:0;min-width:180px;text-align:center;padding:18px 26px;border-radius:24px;font-weight:900;letter-spacing:.04em;filter:drop-shadow(0 8px 18px #0003)}
+.score-burst.show{animation:scorePop .95s cubic-bezier(.2,.9,.25,1) both}
+.score-burst.positive{color:#fff;background:linear-gradient(145deg,#43a65f,#287846);border:4px solid #dff5c8;box-shadow:0 0 0 7px #ffffffcc,0 12px 32px #1f6c3c55}
+.score-burst.negative{color:#fff;background:linear-gradient(145deg,#dc4d43,#a82326);border:4px solid #ffd1c9;box-shadow:0 0 0 7px #ffffffcc,0 12px 32px #8b191955}
+.score-burst.neutral{color:#4d4037;background:#fff8e8;border:4px solid #dfc08c;box-shadow:0 0 0 7px #ffffffcc,0 12px 32px #6c513e33}
+.score-burst .score-main{font-size:clamp(42px,11vw,72px);line-height:1;white-space:nowrap;text-shadow:0 3px 0 #0002}
+.score-burst .score-sub{font-size:clamp(14px,3.5vw,20px);margin-top:9px;letter-spacing:.02em}
+#score.score-pulse{animation:scorePulse .55s ease}
+@keyframes scorePop{0%{opacity:0;transform:translate(-50%,-44%) scale(.55) rotate(-4deg)}18%{opacity:1;transform:translate(-50%,-52%) scale(1.12) rotate(2deg)}34%{transform:translate(-50%,-50%) scale(.98) rotate(0)}72%{opacity:1;transform:translate(-50%,-52%) scale(1)}100%{opacity:0;transform:translate(-50%,-62%) scale(1.08)}}
+@keyframes scorePulse{0%,100%{transform:scale(1)}45%{transform:scale(1.28)}}
+@media(prefers-reduced-motion:reduce){.score-burst.show,#score.score-pulse{animation-duration:.12s}}
+
+/* V2.6：玩家姓名、結算大分數、本機排行榜 */
+.start-overlay{position:fixed;inset:0;z-index:90;background:rgba(243,238,230,.97);display:flex;align-items:center;justify-content:center;padding:20px}
+.start-panel{width:min(92vw,430px);background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 18px 60px #4e33202b;text-align:center}
+.start-panel h2{font-size:26px;margin:0 0 8px}.start-panel p{color:var(--muted);line-height:1.6;margin:0 0 16px}
+.start-panel input{width:100%;border:2px solid #cdb9a5;border-radius:12px;padding:13px 14px;font:inherit;font-size:18px;background:#fff;margin-bottom:10px}
+.start-panel .next{margin-top:0}.start-error{min-height:22px;color:#b44937;font-weight:700;font-size:14px;margin-top:8px}
+.complete-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:6px}
+.complete-head h2{flex:1;line-height:1.35}
+.final-score{flex:0 0 auto;text-align:center;font-weight:950;color:#8b3f2c;background:#fff4e8;border:3px solid #d5a676;border-radius:16px;padding:10px 15px;box-shadow:0 5px 16px #8b59401c;line-height:1}
+.final-score .big{display:block;font-size:clamp(30px,7vw,52px);white-space:nowrap;letter-spacing:-.03em}
+.final-score .label{display:block;font-size:12px;color:#8b5940;margin-bottom:5px;letter-spacing:.08em}
+.complete-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0 2px}.complete-actions .next{margin-top:0}
+#showLeaderboard{background:#6f8150}
+.lb-overlay{position:fixed;inset:0;z-index:95;background:#1d1919b9;display:none;align-items:center;justify-content:center;padding:18px}.lb-overlay.show{display:flex}
+.lb-panel{width:min(94vw,520px);max-height:82vh;overflow:auto;background:var(--paper);border-radius:20px;padding:18px;box-shadow:0 16px 60px #0005}
+.lb-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}.lb-head h2{margin:0;font-size:23px}
+.lb-list{display:grid;gap:8px;margin-top:12px}.lb-row{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:9px;background:#f7f0e7;border:1px solid #dfd0bf;border-radius:12px;padding:10px 12px}.lb-row.me{border:3px solid #6e9a78;background:#eff8ef}.lb-rank{font-size:20px;font-weight:900;color:#8b5940}.lb-name{font-weight:800;overflow-wrap:anywhere}.lb-score{font-size:18px;font-weight:950;color:#397450;white-space:nowrap}.lb-empty{text-align:center;color:var(--muted);padding:22px 8px}
+@media(max-width:520px){.complete-head{align-items:stretch;flex-direction:column}.final-score{width:100%;padding:12px}.final-score .big{font-size:42px}.complete-actions{grid-template-columns:1fr}.lb-row{grid-template-columns:38px 1fr auto;padding:9px}}
+
+/* V2.7：速度獎勵、Combo 與最終分數拆解 */
+.score-burst.combo-burst{min-width:min(88vw,430px);padding:18px 20px}
+.score-burst.combo-burst .score-main{font-size:clamp(25px,7vw,42px);line-height:1.22;white-space:normal}
+.score-burst.combo-burst .score-sub{font-size:clamp(15px,4vw,20px);line-height:1.55;font-weight:850}
+.final-score{min-width:min(100%,360px);padding:14px 18px;line-height:1.3}
+.final-score .breakdown{display:grid;gap:7px;text-align:left;font-size:clamp(15px,3.6vw,18px)}
+.final-score .breakdown-row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+.final-score .breakdown-row strong{font-size:1.08em}
+.final-score .breakdown-total{border-top:2px solid #d8b28d;margin-top:4px;padding-top:9px;color:#8b3f2c;font-size:clamp(21px,5vw,28px);font-weight:950}
+.final-score .score-plus{font-weight:900;color:#397450;white-space:nowrap}
+@media(max-width:520px){.final-score{padding:15px 16px}.final-score .breakdown{font-size:17px}}
+
+/* V2.8：延長得分回饋，題目卡固定顯示目前 Combo */
+.question-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:-3px 0 10px}
+.question-tools .translate-btn{margin:0;flex:0 1 auto}
+.combo-badge{margin-left:auto;min-width:132px;padding:9px 12px;border:2px solid #e1b164;background:linear-gradient(145deg,#fff8df,#f8e7b8);border-radius:12px;text-align:center;font-weight:950;color:#a65325;white-space:nowrap;box-shadow:0 3px 10px #9c6a2920}
+.combo-badge .combo-number{font-size:1.18em;color:#c6442e}
+.combo-badge.combo-live{animation:comboPulse .48s ease}
+@keyframes comboPulse{0%,100%{transform:scale(1)}45%{transform:scale(1.13)}}
+@media(max-width:420px){.question-tools{gap:7px}.combo-badge{min-width:116px;padding:9px 8px;font-size:13px}.question-tools .translate-btn{padding:9px 9px;font-size:13px}}
+/* 分數資訊較多，維持約 1.3 秒後再淡出 */
+.score-burst.show{animation-duration:1.3s}
+@keyframes scorePop{0%{opacity:0;transform:translate(-50%,-44%) scale(.55) rotate(-4deg)}12%{opacity:1;transform:translate(-50%,-52%) scale(1.12) rotate(2deg)}24%{opacity:1;transform:translate(-50%,-50%) scale(.98) rotate(0)}82%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}100%{opacity:0;transform:translate(-50%,-58%) scale(1.04)}}
+
+/* v2.9.1: score dialog must remain visible until player confirms */
+.score-burst{pointer-events:auto!important;display:none!important;opacity:0!important;animation:none!important;}
+.score-burst.show{display:block!important;opacity:1!important;animation:scoreModalIn .24s cubic-bezier(.2,.9,.25,1) both!important;}
+.score-burst .score-confirm{pointer-events:auto!important;}
+.portal-return{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;background:#755b89!important;color:#fff!important;border-radius:12px;padding:12px 16px;font-weight:850;min-height:44px}.portal-return:focus-visible{outline:3px solid #e4ba70;outline-offset:3px}.test-notice{background:#fff3d6;border:1px solid #dbbb7c;color:#65451f;padding:12px 16px;border-radius:12px;margin:12px 0 20px;font-size:13px;font-weight:700;line-height:1.65}</style></head><body><main class="app"><header><div class="eyebrow">說文解圖 · 初入書院 · 一章4句</div><h1>《鐵杵成針》</h1><p>古文原句 × 五柳先生與安貧樂道｜閱讀原文，破解經典插畫</p><p style="font-size:12px;opacity:.8;margin-top:6px">跟著陶淵明認識淡泊名利、安貧樂道的五柳先生。</p></header><div id="game"><div class="topline"><span id="progressLabel">第 1 / 12 句</span><span id="score">得分 0</span></div><div class="progress"><div id="progressFill"></div></div><div class="play-area"><section class="card"><div class="tag" id="chapterLabel">第一章・情節配對</div><p class="sentence" id="sentence"></p><div class="question-tools"><button class="translate-btn" id="translateToggle" type="button">📖 查看白話翻譯</button><div class="combo-badge" id="comboBadge" aria-live="polite">🔥 COMBO <span class="combo-number" id="comboNumber">0</span></div></div><div class="translation" id="translation" hidden></div><div class="target" id="target"><span class="plus">＋</span><span>選擇下方插畫填入</span></div><div id="feedback" class="feedback" aria-live="polite"></div></section><section class="library"><div class="library-head"><h2>候選插畫</h2><span id="remaining" class="tag"></span></div><p class="sub">點選縮圖 → 放大觀看 → 確認作答（每題固定4張）</p><div class="choices" id="choices"></div><div class="controls"><button id="reset">重新開始</button><button id="sound">音效：開</button><button id="music">♫ 背景音樂：準備中</button></div></section></div></div><section id="sorting" class="review"><h2 id="sortTitle">本章情節排序挑戰</h2><p class="sub">依故事順序點選下方「圖片＋原文」，放入上方對應位置。點擊已放入的圖片可以卸下。</p><div id="sortStats" class="tag"></div><button class="next sort-leaderboard" id="sortLeaderboard" type="button">🏆 查看排行榜</button><div class="sort-assists"><button class="next" id="sortHint" type="button" hidden>💡 幫我排一張</button><button class="next" id="sortRescue" type="button" hidden>🆘 幫我完成剩下排序</button></div><h3 class="sort-subtitle">故事順序（空格為窄條，放入後展開；點擊可卸下）</h3><div id="sortSlots" class="sort-slots"></div><h3 class="sort-subtitle">待排序漫畫</h3><div id="sortPool" class="sort-pool"></div><p id="sortFeedback" class="feedback" aria-live="polite"></p><button class="next" id="checkSort" disabled>確認排序</button></section><section id="review" class="review"><h2>🎉 章節完成！本章漫畫回顧</h2><p class="sub">依照故事順序回顧本章各幅插畫與古文。</p><div class="review-grid" id="reviewGrid"></div><button class="next" id="again">進入下一章</button></section><section id="complete" class="review"><div class="complete-head"><h2>🎉 鐵杵成針挑戰完成！4句完整連環漫畫</h2><div class="final-score" id="finalScore"><div class="breakdown"><div class="breakdown-row"><span>基本得分</span><strong id="finalBase">0</strong></div><div class="breakdown-row"><span>⚡速度獎勵</span><span class="score-plus" id="finalSpeed">+0</span></div><div class="breakdown-row"><span>🔥 Combo獎勵</span><span class="score-plus" id="finalCombo">+0</span></div><div class="breakdown-row breakdown-total"><span>最終得分</span><strong id="finalTotal">0</strong></div></div></div></div><p class="sub">三章五柳先生生活依序呈現。可向下捲動欣賞全部4幅畫與原文。</p><div class="academy-finish" id="academyFinish" aria-live="polite" hidden></div><div class="complete-actions"><button class="next" id="showLeaderboard">🏆 查看排行榜</button><a class="next portal-return" id="portalReturn" href="https://tanjchao.github.io/Shuowen-Jietu/index.html">🏮 返回說文解圖書院</a><button class="next" id="restartAll">重新挑戰4句</button></div><div class="review-grid" id="completeGrid"></div></section><p class="note">選圖答對100分，答錯前兩次各扣50分｜⚡ 0～5秒 +50、6～10秒 +10｜🔥 5秒內首次答對連擊：2 Combo +10、3 Combo +20、4 Combo +30、5 Combo以上 +50｜排序首輪每格50分、第二輪25分、第三輪起自行答對10分；系統提示0分</p></main><div id="playerStart" class="start-overlay"><div class="start-panel"><h2>《鐵杵成針》挑戰</h2><p>請先輸入玩家姓名。完成挑戰後，成績會登上排行榜。</p><input id="playerNameInput" type="text" maxlength="12" autocomplete="off" placeholder="輸入姓名（最多12字）" aria-label="玩家姓名"><button class="next" id="startGameBtn" type="button">開始挑戰</button><button class="next start-leaderboard" id="startLeaderboard" type="button">🏆 查看排行榜</button><div id="startError" class="start-error" aria-live="polite"></div></div></div><div id="leaderboardOverlay" class="lb-overlay" role="dialog" aria-modal="true" aria-label="排行榜"><div class="lb-panel"><div class="lb-head"><h2>🏆 馬說排行榜</h2><button class="close" id="closeLeaderboard" aria-label="關閉排行榜">×</button></div><div id="myRankCard" class="lb-me-card"></div><p class="sub" id="leaderboardNote">☁️ 全班雲端排行榜｜同一姓名只保留最高分。</p><div id="leaderboardPodium" class="lb-podium"></div><div class="lb-section-title" id="leaderboardListTitle">第 4～20 名</div><div id="leaderboardList" class="lb-list"></div></div></div><div id="scoreBurst" class="score-burst" role="dialog" aria-modal="true" aria-live="assertive" aria-atomic="true"><div class="score-main"></div><div class="score-lines"></div><div class="score-sub"></div><button class="score-confirm" id="scoreConfirm" type="button">確認</button></div><audio id="bgm" preload="none" loop autoplay playsinline></audio><div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="放大預覽候選圖片"><div class="modal"><div class="modal-top"><strong>仔細觀察這張插畫</strong><button class="close" id="close" aria-label="關閉預覽">×</button></div><img id="preview" class="preview" alt="候選插畫放大預覽"><div class="modal-actions"><button class="cancel" id="cancel">再看看其他圖</button><button class="confirm" id="confirm">確認選這張</button></div></div></div><script>
+/* 說文解圖：本機學籍 v1｜跨 github.io 同來源 localStorage，與雲端排行榜分離 */
+(function(){
+ 'use strict';
+ const KEY='shuowen_academy_v1';
+ const GAMES={'needle':{title:'鐵杵成針',tier:'easy',base:100,badge:'鐵杵成針'},'five-tree':{title:'五柳先生傳',tier:'easy',base:100,badge:'五柳隱士'},hourse:{title:'馬說',tier:'easy',base:100,badge:'識馬知才'},mulan:{title:'木蘭詩',tier:'easy',base:100,badge:'代父從軍'},friend_date:{title:'陳太丘與友期行',tier:'easy',base:100,badge:'守信知禮'},night_travel:{title:'記承天寺夜遊',tier:'easy',base:100,badge:'月夜閒遊'},taohuayuan:{title:'桃花源記',tier:'normal',base:150,badge:'桃源訪客'},taohuayuan_plus:{title:'桃花源記 PLUS',tier:'special',base:100,badge:'秘境探索者'},zuozhongyi:{title:'左忠毅公軼事',tier:'hard',base:200,badge:'忠義傳人'}};
+ const NEEDLE_MAX_SCORE=860;
+ const RANKS=[{name:'迷路小書僮',min:0},{name:'聰明小書僮',min:100},{name:'進京趕考書生',min:300},{name:'狀元及第進士',min:700},{name:'名滿京城大師',min:1400},{name:'一代宗師文冠天下',min:2500}];
+ const normalize=s=>String(s||'').trim().slice(0,12);
+ function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'{}');if(d&&d.version===1&&d.profiles&&typeof d.profiles==='object')return d}catch(e){}return {version:1,active:'',profiles:{}}}
+ function save(d){try{localStorage.setItem(KEY,JSON.stringify(d));return true}catch(e){return false}}
+ function getProfile(name,create=false){const d=load();let n=normalize(name||d.active);if(!n)return null;if(create&&!d.profiles[n]){d.profiles[n]={name:n,created:Date.now(),games:{},badges:{}};save(d)}return d.profiles[n]||null}
+ function activate(name){const n=normalize(name);if(!n)return null;const d=load();if(!d.profiles[n])d.profiles[n]={name:n,created:Date.now(),games:{},badges:{}};d.active=n;save(d);return d.profiles[n]}
+ function list(){const d=load();return Object.values(d.profiles).sort((a,b)=>(b.updated||b.created||0)-(a.updated||a.created||0))}
+ function total(p){return Object.values(p?.games||{}).reduce((acc,g)=>acc+Math.max(0,Number(g.points||0)),0)}
+ function completed(p){return Object.keys(p?.games||{}).filter(id=>(p.games[id]?.completed||0)>0)}
+ function rankOf(p){const xp=total(p),g=completed(p);let result=0;if(xp>=100&&g.length>=1)result=1;if(xp>=300&&g.some(id=>GAMES[id]?.tier==='normal'))result=Math.max(result,2);if(xp>=700&&g.length>=3)result=Math.max(result,3);if(xp>=1400&&g.some(id=>GAMES[id]?.tier==='hard'))result=Math.max(result,4);if(xp>=2500&&g.length>=6&&g.some(id=>GAMES[id]?.tier==='hard'))result=5;return result}
+ function maxScore(questionCount,chapterSize){const size=chapterSize||((questionCount===28)?7:5);const chapterCount=Math.ceil(questionCount/size);let combo=0;for(let chapter=0;chapter<chapterCount;chapter++){const q=Math.min(size,questionCount-chapter*size);for(let c=1;c<=q;c++)combo+=(c>=5?50:c===4?30:c===3?20:c===2?10:0)}return questionCount*150+questionCount*50+combo}
+ function finish(name,id,info){const d=load(),n=normalize(name);if(!n||!GAMES[id])return null;if(!d.profiles[n])d.profiles[n]={name:n,created:Date.now(),games:{},badges:{}};const p=d.profiles[n],g=GAMES[id],before=rankOf(p);const prev=p.games[id]||{};
+  const max=(id==='needle'?NEEDLE_MAX_SCORE:maxScore(info.questionCount,info.chapterSize)),raw=Number(info.score)||0,percent=max>0?Math.max(0,Math.min(100,Math.round(raw/max*10000)/100)):0;
+  const tier=Math.max(0,Math.min(100,Math.floor((percent+1e-8)/10)*10));const extra=tier>=50?tier:0;
+  const multiplier=g.tier==='hard'?1.2:1;const awarded=Math.round((g.base+extra)*multiplier);const oldPoints=Math.max(0,Number(prev.points||0));const delta=Math.max(0,awarded-oldPoints);
+  const badges=p.badges||(p.badges={}),newBadges=[];function grant(b){if(!badges[b]){badges[b]={at:Date.now(),game:id};newBadges.push(b)}}
+  grant(g.badge);
+  if(info.noWrong)grant('一氣呵成！');
+  if(info.noHint)grant('不假思索');
+  if(info.sortPerfect)grant('妙手排章');
+  p.games[id]={completed:(Number(prev.completed)||0)+1,points:Math.max(oldPoints,awarded),bestPercent:Math.max(Number(prev.bestPercent)||0,percent),bestScore:Math.max(Number(prev.bestScore)||0,raw),lastAt:Date.now()};p.updated=Date.now();d.active=n;const persisted=save(d),after=rankOf(p);
+  return {name:n,game:id,percent,max,base:Math.round(g.base*multiplier),bonus:Math.round(extra*multiplier),delta,total:total(p),tier:RANKS[after].name,rankUp:after>before,newBadges,persisted,rank:after};
+ }
+ window.ShuowenAcademy={KEY,GAMES,RANKS,load,activate,getProfile,list,total,completed,rankOf,maxScore,finish};
+})();
+
+/* 雲端學籍 v2.4：公開 RPC，僅在已登入時才雲端同步 */
+(function(){'use strict';
+const URL='https://qxgysajhvqjpogrsutyf.supabase.co', KEY='sb_publishable_TvmZX_hhWXlQlxEQ4ejz5Q_UOnwedVP';
+const SESSION='shuowen_cloud_session_v1',LOCAL='shuowen_academy_v1';
+function session(){try{const s=JSON.parse(localStorage.getItem(SESSION)||'null');return s&&/^\d{6}$/.test(s.code)&&/^[a-f0-9]{64}$/.test(s.token)?s:null}catch(e){return null}}
+function randomToken(){const a=new Uint8Array(32);crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('')}
+async function rpc(name,data){const res=await fetch(URL+'/rest/v1/rpc/'+name,{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify(data)});let body;try{body=await res.json()}catch(e){body=null}if(!res.ok)throw Error(body?.message||'雲端連線失敗（HTTP '+res.status+'）');return body}
+function profile(name){try{const d=JSON.parse(localStorage.getItem(LOCAL)||'{}');return d.profiles?.[name]||null}catch(e){return null}}
+function merge(a,b){a=a&&typeof a==='object'?a:{};b=b&&typeof b==='object'?b:{};const out={name:b.name||a.name||'',created:Math.min(Number(a.created)||Date.now(),Number(b.created)||Date.now()),games:{},badges:{...a.badges,...b.badges}};for(const id of new Set([...Object.keys(a.games||{}),...Object.keys(b.games||{})])){const x=a.games?.[id]||{},y=b.games?.[id]||{};out.games[id]={completed:Math.max(Number(x.completed)||0,Number(y.completed)||0),points:Math.max(Number(x.points)||0,Number(y.points)||0),bestPercent:Math.max(Number(x.bestPercent)||0,Number(y.bestPercent)||0),bestScore:Math.max(Number(x.bestScore)||0,Number(y.bestScore)||0),lastAt:Math.max(Number(x.lastAt)||0,Number(y.lastAt)||0)}}return out}
+function setLocal(name,p){const d={version:1,active:name,profiles:{}};d.profiles[name]={...p,name};localStorage.setItem(LOCAL,JSON.stringify(d));window.dispatchEvent(new Event('shuowen-cloud-changed'))}
+async function attach(result,token){const name=result.name;const combined=merge(result.progress,profile(name));setLocal(name,combined);localStorage.setItem(SESSION,JSON.stringify({code:result.code,token,name}));try{await push()}catch(e){console.warn('初次同步尚未完成',e)}return {name,code:result.code,pin:result.pin||null}}
+async function create(code,name){if(!/^\d{6}$/.test(code))throw Error('學籍代碼必須是六位數');if(!name.trim()||name.trim().length>12)throw Error('姓名請輸入 1～12 個字');const token=randomToken();const result=await rpc('sw_cloud_create',{p_code:code,p_name:name.trim(),p_token:token});return attach(result,token)}
+async function login(code,pin){if(!/^\d{6}$/.test(code)||!/^\d{4}$/.test(pin))throw Error('請輸入六位學籍代碼及四位恢復碼');const token=randomToken();const result=await rpc('sw_cloud_login',{p_code:code,p_pin:pin,p_token:token});return attach(result,token)}
+async function pull(){const s=session();if(!s)return null;return push()}
+function isCovered(saved,wanted){
+ const a=saved&&typeof saved==='object'?saved:{};
+ const b=wanted&&typeof wanted==='object'?wanted:{};
+ for(const [id,need] of Object.entries(b.games||{})){
+  const have=a.games?.[id]||{};
+  for(const field of ['completed','points','bestPercent','bestScore','lastAt']){
+   if((Number(have[field])||0)<(Number(need[field])||0))return false;
+  }
+ }
+ for(const id of Object.keys(b.badges||{})){if(!Object.prototype.hasOwnProperty.call(a.badges||{},id))return false}
+ return true;
+}
+let ongoing=null;
+async function push(){
+ const s=session();if(!s)throw Error('尚未登入雲端學籍');
+ if(ongoing){await ongoing;return push()}
+ const job=(async()=>{
+  for(let attempt=0;attempt<4;attempt++){
+   if(!session()||session().code!==s.code||session().token!==s.token)throw Error('學籍已切換，停止同步');
+   const remote=await rpc('sw_cloud_get',{p_code:s.code,p_token:s.token});
+   const current=profile(s.name);if(!current)throw Error('找不到目前學籍的本機資料');
+   const combined=merge(remote.progress,current);
+   // Only write if cloud misses something. Never replace freshly changed local data with an earlier snapshot.
+   const saved=isCovered(remote.progress,combined)?remote:await rpc('sw_cloud_save',{p_code:s.code,p_token:s.token,p_progress:combined});
+   const newest=profile(s.name);if(!newest)throw Error('本機學籍資料已更動');
+   const union=merge(saved.progress,newest);
+   setLocal(s.name,union);
+   if(isCovered(saved.progress,union))return saved;
+  }
+  throw Error('學籍在同步期間持續更新，請再按一次重試');
+ })();
+ ongoing=job;
+ try{return await job}finally{if(ongoing===job)ongoing=null}
+}
+async function logout(){const s=session();if(s){await push();await rpc('sw_cloud_logout',{p_code:s.code,p_token:s.token});}localStorage.removeItem(SESSION);localStorage.removeItem(LOCAL);window.dispatchEvent(new Event('shuowen-cloud-changed'))}
+window.ShuowenCloud={session,create,login,pull,push,logout};
+})();
+
+
+const SHUOWEN_BADGE_INFO={"五柳隱士":{"icon":"🌿","condition":"完整通關《鐵杵成針》。"},"識馬知才":{"icon":"🐎","condition":"完整通關《馬說》。"},"代父從軍": {"icon": "⚔️", "condition": "完整通關《木蘭詩》。"}, "桃源訪客": {"icon": "🌸", "condition": "完整通關《桃花源記》。"}, "秘境探索者": {"icon": "🗝️", "condition": "完整通關《桃花源記 PLUS》。"}, "忠義傳人": {"icon": "🏯", "condition": "完整通關《左忠毅公軼事》。"}, "一氣呵成！": {"icon": "🎯", "condition": "同一次挑戰中，整篇選圖配對題從頭到尾沒有答錯任何一題。"}, "不假思索": {"icon": "🧠", "condition": "同一次完整挑戰中，從頭到尾沒有使用白話翻譯提示。"}, "妙手排章": {"icon": "📜", "condition": "同一次挑戰中，每一章的排序都在第一次檢查時完全正確。"}};
+function renderAcademyFinish(result){const el=document.getElementById('academyFinish');if(!el)return;el.replaceChildren();if(!result){el.hidden=true;return}el.hidden=false;
+ const title=document.createElement('strong');title.textContent=result.rankUp?'🎉 書院晉升！'+result.tier:'📜 本次文采結算';el.appendChild(title);
+ const line=document.createElement('p');line.className='academy-line';line.textContent='本次得分率 '+result.percent.toFixed(1)+'%｜文采值新增 +'+result.delta+'｜累積 '+result.total+' 文采值';el.appendChild(line);
+ const detail=document.createElement('p');detail.className='academy-line';detail.textContent='目前稱號：'+result.tier+'。得分率每滿10%計一級（50%起獎勵），困難級獎勵乘以1.2；同篇只補領高於既有紀錄的差額。';el.appendChild(detail);
+ if(result.newBadges.length){for(const b of result.newBadges){const info=SHUOWEN_BADGE_INFO[b]||{icon:'🏅',condition:'達成指定挑戰條件'};const badge=document.createElement('p');badge.className='academy-new';badge.textContent=info.icon+' 新徽章：'+(b==='妙手排章'?'記憶猶新':b)+'｜取得條件：'+info.condition;el.appendChild(badge)}}
+ if(!result.persisted){const err=document.createElement('p');err.className='academy-line';err.textContent='⚠️ 瀏覽器未允許儲存，學籍可能無法保留。';el.appendChild(err)}
+}
+const CHAPTER_SIZES=[4];
+const CHAPTER_NAMES=["第一章・勤學有成"];
+const CHAPTER_STARTS=CHAPTER_SIZES.map((_,i)=>CHAPTER_SIZES.slice(0,i).reduce((a,b)=>a+b,0));
+function chapterOf(i){return Math.max(0,CHAPTER_STARTS.findLastIndex(s=>i>=s))}
+function chapterStart(ch){return CHAPTER_STARTS[ch]}
+function chapterSize(ch){return CHAPTER_SIZES[ch]}
+function chapterEnd(ch){return chapterStart(ch)+chapterSize(ch)}
+function currentChapter(){return chapterOf(Math.min(index,scenes.length-1))}
+function chineseChapter(i){return ['一','二','三','四'][i]}
+function chapterTitle(i){return CHAPTER_NAMES[i]}
+const CHAPTER_SIZE=4; // 本篇單章 4 句；保留雲端學籍計分參數
+const scenes=[{"id":1,"text":"磨針溪，在象耳山下。","src":"images/scene_01.webp"},{"id":2,"text":"世傳李太白讀書山中，未成，棄去。","src":"images/scene_02.webp"},{"id":3,"text":"過是溪，逢老媼方磨鐵杵。問之，曰「欲作針。」","src":"images/scene_03.webp"},{"id":4,"text":"太白感其意，還卒業。","src":"images/scene_04.webp"}];
+const translations=["磨針溪在象耳山下。","世間傳說李白曾在山中讀書，學業未成就放棄離去。","經過這條溪時，他遇到一位老婆婆正在磨鐵杵；李白問她為什麼這樣做，她說：「想把它磨成針。」","李白被她的毅力感動，於是回去完成學業。"];
+const $=s=>document.querySelector(s);let index=0,score=0,baseScore=0,speedBonusTotal=0,comboBonusTotal=0,comboCount=0,comboDeadline=null,comboFadeRaf=null,questionStartTime=null,questionRenderToken=0,wrongCount=0,soundOn=true,order=[],picked=null,busy=false,audioCtx=null,reviewChapter=0,playerName="",scoreSaved=false;function shuffle(items){let a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}// 答對／答錯提示音使用 Web Audio；背景音樂讀取 GitHub 上的 MP3。
+const bgm=$('#bgm');bgm.volume=.32;
+const bgmUrl='music/background.mp3';
+let musicWanted=true,musicPlaying=false,musicReady=false,bgmLoadStarted=false,remainingPreloadStarted=false,autoplayBlocked=false;
+function updateMusicButton(){
+ const b=$('#music');
+ if(!musicWanted){b.textContent='♫ 播放背景音樂';return}
+ if(!musicReady){b.textContent=bgmLoadStarted?'♫ 背景音樂：載入中':'♫ 背景音樂：準備中';return}
+ b.textContent=musicPlaying?'♫ 暫停背景音樂':(autoplayBlocked?'♫ 背景音樂：點圖片後播放':'♫ 背景音樂：待播放');
+}
+function ctxAudio(){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;const c=audioCtx||(audioCtx=new C());if(c.state==='suspended')c.resume();return c}
+function tone(freq,start,duration,volume,type='sine'){
+ const c=ctxAudio();if(!c)return;
+ const osc=c.createOscillator(),gain=c.createGain();osc.type=type;osc.frequency.setValueAtTime(freq,start);
+ gain.gain.setValueAtTime(.0001,start);gain.gain.exponentialRampToValueAtTime(Math.max(.001,volume),start+.015);gain.gain.exponentialRampToValueAtTime(.0001,start+duration);
+ osc.connect(gain).connect(c.destination);osc.start(start);osc.stop(start+duration+.02);
+}
+function play(){if(!soundOn)return;try{const c=ctxAudio();if(!c)return;[523,659,784,1047].forEach((f,i)=>tone(f,c.currentTime+i*.105,.29,.28,'triangle'))}catch(e){}}
+function wrong(){if(!soundOn)return;try{const c=ctxAudio();if(!c)return;tone(392,c.currentTime,.14,.19,'triangle');tone(294,c.currentTime+.13,.16,.20,'triangle');tone(220,c.currentTime+.27,.30,.22,'triangle')}catch(e){}}
+let scoreBurstTimer=null,scoreBurstConfirmAction=null;
+function openScoreBurst(kind,rows,onConfirm=null){
+ clearTimeout(scoreBurstTimer);scoreBurstTimer=null;
+ const el=$('#scoreBurst');if(!el)return;
+ const main=el.querySelector('.score-main'),lines=el.querySelector('.score-lines');
+ main.textContent='';lines.innerHTML='';
+ rows.forEach(([label,value])=>{const row=document.createElement('div');row.className='score-line';const a=document.createElement('span');a.className='label';a.textContent=label;const b=document.createElement('span');b.className='value';b.textContent=value;row.append(a,b);lines.appendChild(row)});
+ el.className='score-burst '+kind+' show';scoreBurstConfirmAction=onConfirm;
+ const scoreEl=$('#score');scoreEl.classList.remove('score-pulse');void scoreEl.offsetWidth;scoreEl.classList.add('score-pulse');
+ requestAnimationFrame(()=>$('#scoreConfirm')?.focus());
+}
+function closeScoreBurst(){clearTimeout(scoreBurstTimer);scoreBurstTimer=null;const el=$('#scoreBurst');if(el)el.classList.remove('show');const fn=scoreBurstConfirmAction;scoreBurstConfirmAction=null;if(fn)fn()}
+$('#scoreConfirm').addEventListener('click',closeScoreBurst);
+function showScoreBurst(amount,label='',onConfirm=null){
+ const kind=amount>0?'positive':amount<0?'negative':'neutral';
+ const rows=amount>0?[['得分：',`+${amount}分`]]:amount<0?[['答錯：',`${amount}分`],['Combo：','中斷']]:[['得分：','0分']];
+ openScoreBurst(kind,rows,onConfirm);
+}
+function comboBonusFor(count){if(count>=5)return 50;if(count===4)return 30;if(count===3)return 20;if(count===2)return 10;return 0}
+function speedBonusFor(ms){if(ms<=5000)return 50;if(ms<=10000)return 10;return 0}
+function stopComboFade(){if(comboFadeRaf){cancelAnimationFrame(comboFadeRaf);comboFadeRaf=null}comboDeadline=null}
+function updateComboBadge(pulse=false){
+ const n=$('#comboNumber'),badge=$('#comboBadge');if(!n||!badge)return;n.textContent=comboCount;
+ badge.classList.toggle('combo-hidden',comboCount<=0);if(comboCount<=0)badge.style.opacity='0';else if(!comboDeadline)badge.style.opacity='1';
+ if(pulse&&comboCount>0){badge.classList.remove('combo-live');void badge.offsetWidth;badge.classList.add('combo-live')}
+}
+function startComboCountdown(){
+ stopComboFade();if(comboCount<=0){updateComboBadge();return}
+ const badge=$('#comboBadge');if(!badge)return;badge.classList.remove('combo-hidden');badge.style.opacity='1';comboDeadline=performance.now()+5000;
+ const tick=()=>{if(!comboDeadline||comboCount<=0)return;const left=comboDeadline-performance.now();if(left<=0){comboCount=0;stopComboFade();updateComboBadge();return}badge.style.opacity=String(Math.max(.12,left/5000));comboFadeRaf=requestAnimationFrame(tick)};comboFadeRaf=requestAnimationFrame(tick)
+}
+function breakCombo(){stopComboFade();comboCount=0;updateComboBadge()}
+function showAnswerBurst(speedBonus,comboBonus,onConfirm){
+ openScoreBurst('positive combo-burst',[
+   ['正確：','+100分'],
+   ['速度：',`+${speedBonus}分`],
+   ['Combo：',`+${comboBonus}分`]
+ ],onConfirm)
+}
+
+async function setMusic(on,source='manual'){
+ musicWanted=on;
+ if(!on){bgm.pause();musicPlaying=false;autoplayBlocked=false;updateMusicButton();return}
+ if(!musicReady){updateMusicButton();return}
+ try{await bgm.play();musicPlaying=true;autoplayBlocked=false}catch(e){musicPlaying=false;if(source==='auto')autoplayBlocked=true}
+ updateMusicButton();
+}
+bgm.addEventListener('play',()=>{musicPlaying=true;updateMusicButton()});
+bgm.addEventListener('pause',()=>{musicPlaying=false;updateMusicButton()});
+bgm.addEventListener('error',()=>{musicReady=false;musicPlaying=false;updateMusicButton()});
+function preloadImage(src,priority='auto'){
+ return new Promise(resolve=>{const img=new Image();if('fetchPriority' in img)img.fetchPriority=priority;img.decoding='async';img.onload=img.onerror=()=>resolve();img.src=src});
+}
+function preloadRemainingImages(){
+ if(remainingPreloadStarted)return;remainingPreloadStarted=true;
+ scenes.slice(chapterEnd(0)).forEach(s=>{const img=new Image();if('fetchPriority' in img)img.fetchPriority='low';img.decoding='async';img.src=s.src});
+}
+async function loadBackgroundMusicAfterChapterOne(){
+ if(bgmLoadStarted)return;bgmLoadStarted=true;updateMusicButton();
+ try{
+   // 第一章圖片完成後才開始抓 MP3；等音樂可播放後，再預載其餘圖片。
+   bgm.preload='auto';bgm.src=bgmUrl;bgm.load();
+   await new Promise((resolve,reject)=>{
+     const ok=()=>{cleanup();resolve()},bad=()=>{cleanup();reject(new Error('BGM load failed'))};
+     const cleanup=()=>{bgm.removeEventListener('canplay',ok);bgm.removeEventListener('loadeddata',ok);bgm.removeEventListener('error',bad)};
+     bgm.addEventListener('canplay',ok,{once:true});bgm.addEventListener('loadeddata',ok,{once:true});bgm.addEventListener('error',bad,{once:true});
+   });
+   musicReady=true;updateMusicButton();
+   if(musicWanted)await setMusic(true,'auto');
+ }catch(e){
+   musicReady=false;musicPlaying=false;$('#music').textContent='♫ 背景音樂載入失敗';
+ }finally{preloadRemainingImages()}
+}
+async function preloadInitialAssets(){
+ await Promise.all(scenes.slice(0,chapterEnd(0)).map(s=>preloadImage(s.src,'high')));
+ await loadBackgroundMusicAfterChapterOne();
+}
+function tryMusicAfterPictureTap(){if(musicWanted&&musicReady&&!musicPlaying)setMusic(true,'gesture')}
+function chooseFour(){
+  const correct=scenes[index].id;
+  const chapter=currentChapter();
+  const start=chapterStart(chapter)+1, end=chapterEnd(chapter);
+  // 本章尚未答對的插畫優先；每題固定四選一。
+  const remaining=scenes.filter(s=>s.id>=start&&s.id<=end&&s.id>index+1).map(s=>s.id);
+  const chosen=[correct,...shuffle(remaining).slice(0,3)];
+  // 第一章保密：第一章候選圖優先使用本章圖片。
+  if(chapter===0 && chosen.length<4){
+    const earlier=scenes.filter(s=>s.id>=1&&s.id<=chapterEnd(0)&&!chosen.includes(s.id)).map(s=>s.id);
+    chosen.push(...shuffle(earlier).slice(0,4-chosen.length));
+  }
+  // 第二章起可從後續章節補足候選圖。
+  if(chosen.length<4 && chapter>0){
+    const next=scenes.filter(s=>s.id>end&&!chosen.includes(s.id)).map(s=>s.id);
+    chosen.push(...shuffle(next).slice(0,4-chosen.length));
+  }
+  // 若本章和後續章節不足四張，則從先前章節補足。
+  if(chosen.length<4){
+    const previous=scenes.filter(s=>s.id<start&&!chosen.includes(s.id)).map(s=>s.id);
+    chosen.push(...shuffle(previous).slice(0,4-chosen.length));
+  }
+  return shuffle(chosen);
+}
+function render(){
+  if(index>=scenes.length){finish();return}
+  const s=scenes[index];
+  order=chooseFour();
+  $('#progressLabel').textContent=`第 ${index+1} / ${scenes.length} 句`;
+  $('#score').textContent=`得分 ${score}`;updateComboBadge();
+  $('#progressFill').style.width=`${index/scenes.length*100}%`;
+  $('#sentence').textContent=s.text;
+  $('#translation').hidden=true;$('#translation').textContent=translations[index];$('#translateToggle').textContent='📖 查看白話翻譯';
+  $('#chapterLabel').textContent=(CHAPTER_NAMES[currentChapter()])+'・情節配對';
+  updateHintCount();
+  $('#target').innerHTML='<span class="plus">＋</span><span>選擇下方插畫填入</span>';
+  $('#target').className='target';
+  $('#remaining').textContent='4 個選項';
+  $('#choices').innerHTML='';
+  questionStartTime=null;const thisRender=++questionRenderToken;let loadedChoices=0;
+  const choiceReady=()=>{loadedChoices++;if(loadedChoices>=order.length&&thisRender===questionRenderToken&&index<scenes.length){questionStartTime=performance.now();startComboCountdown()}};
+  order.forEach(id=>{
+    const b=document.createElement('button');b.type='button';b.className='choice';
+    b.setAttribute('aria-label','放大查看候選圖片');
+    const im=document.createElement('img');im.alt='候選插畫';im.decoding='async';im.loading='eager';let counted=false;
+    const markChoiceReady=()=>{if(counted)return;counted=true;choiceReady()};im.addEventListener('load',markChoiceReady,{once:true});im.addEventListener('error',markChoiceReady,{once:true});im.src=scenes[id-1].src;
+    b.appendChild(im);b.addEventListener('click',()=>openPreview(id));$('#choices').appendChild(b);if(im.complete)queueMicrotask(markChoiceReady);
+  });
+}
+function openPreview(id){if(busy||$('#scoreBurst').classList.contains('show'))return;tryMusicAfterPictureTap();picked=id;$('#preview').src=scenes[id-1].src;$('#overlay').classList.add('show');$('#confirm').focus()}
+function closePreview(){$('#overlay').classList.remove('show');picked=null}
+function message(s,ok){$('#feedback').textContent=s;$('#feedback').className='feedback '+(ok?'good':'bad')}
+let academyRunWrong=false,academyRunSortPerfect=true,academyFinishShown=false;
+function answer(){
+ if(picked===null||busy)return;const id=picked;closePreview();
+ if(id!==scenes[index].id){
+   academyRunWrong=true;wrong();wrongCount++;breakCombo();const deduction=wrongCount<=2?50:0;baseScore-=deduction;score-=deduction;$('#score').textContent=`得分 ${score}`;
+   showScoreBurst(-deduction,deduction?`答錯了｜Combo中斷｜目前總分 ${score}`:`本句已扣滿 100 分｜Combo中斷｜總分 ${score}`);
+   message(deduction?`這張插畫與原文情節不符，本次扣 ${deduction} 分（本句已答錯 ${wrongCount} 次），Combo歸零。再觀察看看！`:`這張插畫與原文情節不符（本句已扣滿100分，不再扣分），Combo歸零。再試試！`,false);return
+ }
+ busy=true;play();
+ const elapsed=questionStartTime===null?Infinity:performance.now()-questionStartTime;
+ const speedBonus=speedBonusFor(elapsed);
+ const comboWasAlive=comboCount>0&&comboDeadline!==null&&performance.now()<comboDeadline;
+ stopComboFade();
+ if(wrongCount===0){comboCount=comboWasAlive?comboCount+1:1}else comboCount=0;updateComboBadge(true);
+ const comboBonus=comboBonusFor(comboCount);const earned=100+speedBonus+comboBonus;
+ baseScore+=100;speedBonusTotal+=speedBonus;comboBonusTotal+=comboBonus;score+=earned;
+ $('#target').innerHTML=`<img src="${scenes[index].src}" alt="配對成功的插畫">`;$('#target').className='target filled';
+ message('✓ 答對了！請確認本題得分。',true);
+ $('#score').textContent=`得分 ${score}`;$('#progressFill').style.width=`${(index+1)/scenes.length*100}%`;
+ showAnswerBurst(speedBonus,comboBonus,()=>{index++;wrongCount=0;questionStartTime=null;busy=false;message('',true);if(CHAPTER_STARTS.slice(1).includes(index)||index===scenes.length){breakCombo();startSorting()}else{render()}window.scrollTo({top:0,behavior:'smooth'})});
+}
+let hintUsed=new Set(),sortSlots=[],sortLocked=[],sortScored=[],sortAttempts=0,sortChapter=0,sortHintCount=0,sortFinishing=false;
+function updateHintCount(){const count=[...hintUsed].filter(i=>chapterOf(i)===currentChapter()).length;$('#chapterLabel').textContent=CHAPTER_NAMES[currentChapter()]+'・情節配對｜翻譯提示 '+count+'/'+chapterSize(currentChapter())}
+$('#translateToggle').addEventListener('click',()=>{const t=$('#translation');t.hidden=!t.hidden;$('#translateToggle').textContent=t.hidden?'📖 查看白話翻譯':'📖 收起白話翻譯';if(!t.hidden){hintUsed.add(index);updateHintCount()}});
+function startSorting(){
+ breakCombo();
+ sortChapter=chapterOf(index-1);poolOrder=[];sortAttempts=0;sortHintCount=0;sortFinishing=false;sortSlots=Array(chapterSize(sortChapter)).fill(null);sortLocked=Array(chapterSize(sortChapter)).fill(false);sortScored=Array(chapterSize(sortChapter)).fill(false);
+ $('#game').style.display='none';$('#review').classList.remove('show');$('#sorting').classList.add('show');
+ $('#sortTitle').textContent=chapterTitle(sortChapter)+'・'+chapterSize(sortChapter)+'句排序挑戰';
+ renderSorting();window.scrollTo({top:0,behavior:'smooth'});
+}
+function sortCard(id,clickable){const s=scenes[id-1],b=document.createElement('button');b.type='button';b.className='sort-card';
+ const im=document.createElement('img');im.src=s.src;im.alt='情節插畫';im.decoding='async';im.loading='lazy';const t=document.createElement('span');t.textContent=s.text;b.append(im,t);
+ if(clickable)b.addEventListener('click',clickable);else b.disabled=true;return b}
+let poolOrder=[];
+function renderSorting(){
+ const start=chapterStart(sortChapter)+1,all=Array.from({length:chapterSize(sortChapter)},(_,i)=>start+i);
+ if(!poolOrder.length||poolOrder.some(x=>!all.includes(x)))poolOrder=shuffle(all);
+ const slots=$('#sortSlots'),pool=$('#sortPool');slots.innerHTML='';pool.innerHTML='';
+ sortSlots.forEach((id,i)=>{const wrap=document.createElement('div');wrap.className='sort-slot'+(sortLocked[i]?' locked':'');
+ const label=document.createElement('div');label.className='sort-position';label.textContent='第 '+(i+1)+' 格'+(sortLocked[i]?' ✓ 正確':'');wrap.append(label);
+ if(id!==null)wrap.append(sortCard(id,sortLocked[i]?null:()=>{sortSlots[i]=null;renderSorting()}));else{const empty=document.createElement('div');empty.className='sort-empty';empty.textContent='點下方圖片填入';wrap.append(empty)}slots.append(wrap)});
+ poolOrder.filter(id=>!sortSlots.includes(id)).forEach(id=>{pool.append(sortCard(id,()=>{const at=sortSlots.findIndex(x=>x===null);if(at<0)return;sortSlots[at]=id;$('#sortFeedback').textContent='';renderSorting()}))});
+ const allLocked=sortLocked.every(Boolean);
+ $('#checkSort').disabled=sortFinishing||sortSlots.some(x=>x===null)||allLocked;
+ $('#sortHint').hidden=sortFinishing||allLocked||sortAttempts<2;
+ $('#sortRescue').hidden=sortFinishing||allLocked||sortAttempts<5;
+ $('#sortStats').textContent='已固定正確位置 '+sortLocked.filter(Boolean).length+'/'+chapterSize(sortChapter)+'｜系統協助 '+sortHintCount+'/'+chapterSize(sortChapter)+' 格｜已使用翻譯提示 '+[...hintUsed].filter(i=>chapterOf(i)===sortChapter).length+'/'+chapterSize(sortChapter)+' 句｜檢查次數 '+sortAttempts;
+}
+function completeSorting(messageText){
+ if(sortFinishing)return;sortFinishing=true;renderSorting();$('#sortFeedback').textContent=messageText;
+ setTimeout(()=>{poolOrder=[];$('#sorting').classList.remove('show');sortFinishing=false;finish()},1200)
+}
+function checkSorting(){if(sortFinishing||sortSlots.some(x=>x===null)||$('#scoreBurst').classList.contains('show'))return;sortAttempts++;
+ let good=0,earned=0;for(let i=0;i<chapterSize(sortChapter);i++){
+   if(sortSlots[i]===chapterStart(sortChapter)+i+1){sortLocked[i]=true;good++;if(!sortScored[i]){if(sortAttempts===1)earned+=50;else if(sortAttempts===2)earned+=25;else earned+=10;sortScored[i]=true}}
+   else if(!sortLocked[i])sortSlots[i]=null
+ }
+ if(sortAttempts!==1||good!==sortSlots.length)academyRunSortPerfect=false;
+ baseScore+=earned;score+=earned;$('#score').textContent=`得分 ${score}`;
+ const afterConfirm=()=>{
+   if(good===chapterSize(sortChapter)){completeSorting(`🎉 本章排序全部正確！本次加 ${earned} 分，總分 ${score} 分。即將進入本章漫畫回顧。`);return}
+   renderSorting();
+   let help='';if(sortAttempts>=5)help=' 若還是卡住，可按「🆘 幫我完成剩下排序」。';else if(sortAttempts>=2)help=' 需要幫忙時，可按上方的「💡 幫我排一張」。';
+   $('#sortFeedback').textContent='✓ 已保留 '+good+' 張位置正確的圖片，本次加 '+earned+' 分（總分 '+score+' 分）。其餘已退回下方，請繼續排序。'+help;window.scrollTo({top:0,behavior:'smooth'})
+ };
+ if(earned>0){play();showScoreBurst(earned,'',afterConfirm)}else{wrong();showScoreBurst(0,'',afterConfirm)}
+}
+function useSortHint(){
+ if(sortFinishing||sortAttempts<2)return;const i=sortLocked.findIndex(v=>!v);if(i<0)return;
+ const correctId=chapterStart(sortChapter)+i+1;for(let j=0;j<chapterSize(sortChapter);j++){if(j!==i&&!sortLocked[j]&&sortSlots[j]===correctId)sortSlots[j]=null}
+ sortSlots[i]=correctId;sortLocked[i]=true;sortScored[i]=true;sortHintCount++;renderSorting();
+ if(sortLocked.every(Boolean)){play();completeSorting(`🎉 已用提示補上最後一格，本章故事順序完成！總分 ${score} 分。即將進入本章漫畫回顧。`);return}
+ $('#sortFeedback').textContent=`💡 系統已幫你排好第 ${i+1} 格並鎖定（這一格不計分）。剩下的請繼續挑戰！`;window.scrollTo({top:0,behavior:'smooth'})
+}
+function finishSortByHelp(){
+ if(sortFinishing||sortAttempts<5)return;let helped=0;
+ for(let i=0;i<chapterSize(sortChapter);i++){if(!sortLocked[i]){sortSlots[i]=chapterStart(sortChapter)+i+1;sortLocked[i]=true;sortScored[i]=true;helped++}}
+ sortHintCount+=helped;renderSorting();play();completeSorting(`🆘 系統已幫你完成剩下 ${helped} 格。本章排序完成，總分 ${score} 分。一起進入漫畫回顧吧！`)
+}
+$('#checkSort').addEventListener('click',checkSorting);
+$('#sortHint').addEventListener('click',useSortHint);
+$('#sortRescue').addEventListener('click',finishSortByHelp);
+// ===== v3.0 雲端排行榜（Supabase） =====
+// 建立 Supabase 專案後，只要把下面兩個值換掉即可啟用跨裝置排行榜。
+// 只能使用 Publishable key（sb_publishable_...）；絕對不要把 Secret key 放在網頁裡。
+const SUPABASE_URL='https://qxgysajhvqjpogrsutyf.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_TvmZX_hhWXlQlxEQ4ejz5Q_UOnwedVP';
+const CLOUD_LEADERBOARD_READY=true; // 執行本篇 supabase_setup.sql 後可使用
+let cloudSavePending=false,cloudScoreSaved=false,cloudLastError='';
+const LEADERBOARD_KEY='needleLeaderboardV1';
+function loadLeaderboard(){
+ try{const data=JSON.parse(localStorage.getItem(LEADERBOARD_KEY)||'[]');return Array.isArray(data)?data:[]}catch(e){return []}
+}
+function saveLocalLeaderboardScore(){
+ if(!playerName||scoreSaved)return;scoreSaved=true;
+ try{
+   const rows=loadLeaderboard();const now=Date.now();const found=rows.find(r=>r.name===playerName);
+   if(!found)rows.push({name:playerName,score,time:now,baseScore,speedBonus:speedBonusTotal,comboBonus:comboBonusTotal});
+   else if(score>Number(found.score||0)){found.score=score;found.time=now;found.baseScore=baseScore;found.speedBonus=speedBonusTotal;found.comboBonus=comboBonusTotal}
+   rows.sort((a,b)=>Number(b.score)-Number(a.score)||Number(a.time)-Number(b.time));
+   localStorage.setItem(LEADERBOARD_KEY,JSON.stringify(rows.slice(0,100)));
+ }catch(e){}
+}
+async function saveCloudLeaderboardScore(){
+ if(!CLOUD_LEADERBOARD_READY||!playerName||cloudScoreSaved||cloudSavePending)return;
+ cloudSavePending=true;cloudLastError='';
+ try{
+   const res=await fetch(SUPABASE_URL.replace(/\/$/,'')+'/rest/v1/rpc/submit_needle_score',{
+     method:'POST',headers:{'apikey':SUPABASE_PUBLISHABLE_KEY,'Content-Type':'application/json','Accept':'application/json'},
+     body:JSON.stringify({p_player_name:playerName,p_base_score:baseScore,p_speed_bonus:speedBonusTotal,p_combo_bonus:comboBonusTotal})
+   });
+   if(!res.ok){let detail='';try{detail=await res.text()}catch(e){}throw new Error('HTTP '+res.status+(detail?' '+detail:''))}
+   cloudScoreSaved=true;
+ }catch(e){cloudLastError=e?.message||String(e);console.warn('雲端排行榜上傳失敗',e)}
+ finally{cloudSavePending=false}
+}
+function saveLeaderboardScore(){
+ saveLocalLeaderboardScore();
+ void saveCloudLeaderboardScore();
+}
+function normalizeLeaderboardRow(r){
+ return {name:String(r.player_name??r.name??''),score:Number(r.total_score??r.score??0),time:r.achieved_at??r.time??''}
+}
+function samePlayerName(a,b){return String(a||'').trim().toLocaleLowerCase()===String(b||'').trim().toLocaleLowerCase()}
+function renderMyRank(rows){
+ const card=$('#myRankCard');if(!card)return;card.className='lb-me-card';card.innerHTML='';
+ const all=rows.map(normalizeLeaderboardRow);
+ const activeName=(playerName||$('#playerNameInput')?.value.trim()||'').trim();
+ if(!activeName){
+   const title=document.createElement('div');title.className='lb-me-title';title.textContent='我的排名';
+   const empty=document.createElement('div');empty.className='lb-me-empty';empty.textContent='輸入姓名並開始挑戰後，這裡會顯示你的最高紀錄與目前名次。';
+   card.append(title,empty);card.classList.add('show');return;
+ }
+ const idx=all.findIndex(r=>samePlayerName(r.name,activeName));
+ const title=document.createElement('div');title.className='lb-me-title';title.textContent='我的排名';
+ const who=document.createElement('div');who.className='lb-current-player';who.textContent=`目前玩家：${activeName}`;
+ card.append(title,who);
+ if(idx<0){
+   const empty=document.createElement('div');empty.className='lb-me-empty';empty.textContent='尚未有完整成績。完成一局後，就會在這裡顯示你的名次與最高紀錄。';
+   card.append(empty);card.classList.add('show');return;
+ }
+ const me=all[idx],rank=idx+1;
+ const big=document.createElement('div');big.className='lb-me-rank';big.textContent=rank<=3?`🏆 目前第 ${rank} 名`:`目前第 ${rank} 名`;
+ const sc=document.createElement('div');sc.className='lb-me-score';sc.textContent=`最高紀錄 ${me.score} 分`;
+ const goal=document.createElement('div');goal.className='lb-me-goal';
+ const parts=[];
+ if(rank===1)parts.push('👑 目前是排行榜第一名！');
+ else{const prev=all[idx-1];const need=Math.max(1,prev.score-me.score+1);parts.push(`再多 ${need} 分，可超越第 ${rank-1} 名`)}
+ if(rank>10&&all.length>=10){const tenth=all[9];const need10=Math.max(1,tenth.score-me.score+1);parts.push(`🎯 再多 ${need10} 分，就能進前 10 名`)}
+ else if(rank<=10&&rank>3)parts.push('🎯 已進入前 10 名！');
+ goal.textContent=parts.join(' ｜ ');card.append(big,sc,goal);card.classList.add('show');
+}
+function renderPodium(rows){
+ const wrap=$('#leaderboardPodium');if(!wrap)return;wrap.innerHTML='';
+ const classes=['first','second','third'],medals=['🥇','🥈','🥉'],titles=['世說達人','銀榜高手','銅榜高手'];
+ rows.slice(0,3).map(normalizeLeaderboardRow).forEach((r,i)=>{
+   const card=document.createElement('div');card.className=`podium-card ${classes[i]}`+(samePlayerName(r.name,playerName)?' me':'');
+   if(i===0){const crown=document.createElement('div');crown.className='podium-crown';crown.textContent='👑';card.append(crown)}
+   const medal=document.createElement('div');medal.className='podium-medal';medal.textContent=medals[i];
+   const title=document.createElement('div');title.className='podium-title';title.textContent=titles[i];
+   const name=document.createElement('div');name.className='podium-name';name.textContent=r.name;
+   const scoreEl=document.createElement('div');scoreEl.className='podium-score';scoreEl.textContent=r.score+' 分';
+   card.append(medal,title,name,scoreEl);wrap.append(card)
+ });
+}
+function renderLeaderboardRows(rows,source='cloud'){
+ const list=$('#leaderboardList'),title=$('#leaderboardListTitle');if(!list)return;list.innerHTML='';
+ const all=rows.map(normalizeLeaderboardRow);
+ renderMyRank(all);renderPodium(all);
+ const rest=all.slice(3,20);
+ if(title)title.style.display=rest.length?'block':'none';
+ if(!all.length){const empty=document.createElement('div');empty.className='lb-empty';empty.textContent='目前還沒有成績，完成第一場挑戰就會出現在這裡！';list.append(empty);return}
+ rest.forEach((r,j)=>{
+   const i=j+3;const row=document.createElement('div');row.className='lb-row toplist'+(samePlayerName(r.name,playerName)?' me':'');
+   const rank=document.createElement('div');rank.className='lb-rank';rank.textContent='#'+(i+1);
+   const name=document.createElement('div');name.className='lb-name';name.textContent=r.name;
+   const sc=document.createElement('div');sc.className='lb-score';sc.textContent=r.score+' 分';
+   row.append(rank,name,sc);list.append(row)
+ });
+}
+async function renderLeaderboard(){
+ const list=$('#leaderboardList'),note=$('#leaderboardNote');if(!list)return;
+ list.innerHTML='<div class="lb-empty">排行榜載入中…</div>';
+ if(CLOUD_LEADERBOARD_READY){
+   if(!cloudScoreSaved&&!cloudSavePending&&playerName&&index>=scenes.length)await saveCloudLeaderboardScore();
+   try{
+     const url=SUPABASE_URL.replace(/\/$/,'')+'/rest/v1/needle_leaderboard?select=player_name,base_score,speed_bonus,combo_bonus,total_score,achieved_at&order=total_score.desc,achieved_at.asc&limit=1000';
+     const res=await fetch(url,{headers:{'apikey':SUPABASE_PUBLISHABLE_KEY,'Accept':'application/json'}});
+     if(!res.ok)throw new Error('HTTP '+res.status);
+     const rows=await res.json();
+     if(note)note.textContent='☁️ 全班雲端排行榜｜同一姓名只保留最高分；同分時較早達成者在前。';
+     renderLeaderboardRows(Array.isArray(rows)?rows:[],'cloud');return;
+   }catch(e){cloudLastError=e?.message||String(e);console.warn('雲端排行榜讀取失敗',e)}
+ }
+ const rows=loadLeaderboard().sort((a,b)=>Number(b.score)-Number(a.score)||Number(a.time)-Number(b.time));
+ if(note)note.textContent=CLOUD_LEADERBOARD_READY?'⚠️ 目前連不上雲端，暫時顯示這台裝置的本機排行榜。':'⚙️ 雲端排行榜尚未連線，目前顯示這台裝置的本機排行榜。';
+ renderLeaderboardRows(rows,'local');
+}
+function openLeaderboard(){
+ $('#leaderboardOverlay').classList.add('show');
+ void renderLeaderboard();
+}
+function closeLeaderboard(){$('#leaderboardOverlay').classList.remove('show')}
+function beginForPlayer(){
+ const name=$('#playerNameInput').value.trim();if(!name){$('#startError').textContent='請先輸入姓名再開始挑戰。';$('#playerNameInput').focus();return}
+ playerName=name;window.ShuowenAcademy.activate(name);scoreSaved=false;cloudScoreSaved=false;cloudSavePending=false;cloudLastError='';$('#startError').textContent='';$('#playerStart').style.display='none';
+ if(musicReady&&musicWanted&&!musicPlaying)setMusic(true,'gesture');
+ reset(false);
+}
+function finish(){
+ reviewChapter=chapterOf(index-1)+1;
+ const from=chapterStart(reviewChapter-1);
+ const batch=scenes.slice(from,chapterEnd(reviewChapter-1));
+ $('#game').style.display='none';
+ $('#review').classList.add('show');
+ $('#review h2').textContent='🎉 '+chapterTitle(reviewChapter-1)+'完成！'+chapterSize(reviewChapter-1)+'句漫畫回顧';
+ $('#review .sub').textContent='依照故事順序回顧本章各幅插畫與古文。';
+ $('#reviewGrid').innerHTML='';
+ $('#review .sub').textContent='目前累計 '+score+' 分。本章使用白話翻譯提示 '+[...hintUsed].filter(i=>chapterOf(i)===reviewChapter-1).length+'/'+chapterSize(reviewChapter-1)+' 句。依故事順序回顧插畫、原文與白話翻譯。';
+ batch.forEach(s=>{
+   const article=document.createElement('article');article.className='review-item';
+   const img=document.createElement('img');img.src=s.src;img.alt='第'+s.id+'句插畫';img.loading='lazy';img.decoding='async';img.decoding='async';
+   const small=document.createElement('small');small.textContent='第 '+s.id+' 句';
+   const p=document.createElement('p');p.textContent=s.text;
+   const translation=document.createElement('p');translation.className='review-translation';translation.textContent=translations[s.id-1];article.append(img,small,p,translation);$('#reviewGrid').appendChild(article);
+ });
+ $('#again').textContent=reviewChapter<CHAPTER_NAMES.length?'進入'+chapterTitle(reviewChapter)+'（第'+(index+1)+'～'+chapterEnd(reviewChapter)+'句）':'觀看4句完整連環漫畫';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function reset(markNewRun=true){index=0;score=0;baseScore=0;speedBonusTotal=0;comboBonusTotal=0;comboCount=0;stopComboFade();questionStartTime=null;questionRenderToken++;wrongCount=0;academyRunWrong=false;academyRunSortPerfect=true;academyFinishShown=false;picked=null;busy=false;order=[];reviewChapter=0;hintUsed=new Set();poolOrder=[];if(markNewRun){scoreSaved=false;cloudScoreSaved=false;cloudSavePending=false;cloudLastError=''}updateComboBadge();clearTimeout(scoreBurstTimer);scoreBurstConfirmAction=null;if($('#scoreBurst'))$('#scoreBurst').classList.remove('show');$('#sorting').classList.remove('show');$('#game').style.display='block';$('#review').classList.remove('show');$('#complete').classList.remove('show');closePreview();message('',true);render();window.scrollTo({top:0,behavior:'smooth'})}
+
+function academySyncPanel(){
+ const box=document.getElementById('academyFinish');if(!box)return null;
+ let line=document.getElementById('academyCloudSyncState');
+ if(!line){line=document.createElement('div');line.id='academyCloudSyncState';line.setAttribute('role','status');line.setAttribute('aria-live','polite');line.style.cssText='margin-top:10px;padding:12px;border-radius:12px;background:#eef4ff;color:#243b5a;font-weight:600;line-height:1.5';box.appendChild(line)}
+ return line;
+}
+let academySyncPromise=null;
+async function saveAcademyCloud(){
+ const line=academySyncPanel();
+ if(!window.ShuowenCloud.session()){
+  if(line)line.textContent='📱 尚未登入雲端學籍，目前僅儲存在本機。請返回書院建立／登入學籍。';
+  return false;
+ }
+ if(academySyncPromise)return academySyncPromise;
+ const job=(async()=>{
+  if(line)line.textContent='☁️ 正在儲存雲端學籍，請勿關閉網頁……';
+  try{
+   await window.ShuowenCloud.push();
+   if(line){line.textContent='✅ 雲端學籍已儲存：文采值與徽章已同步。';line.style.background='#e8f6ea';line.style.color='#1d6037'}
+   return true;
+  }catch(e){
+   if(line){
+    line.replaceChildren();line.style.background='#fff1e7';line.style.color='#923c1e';
+    const msg=document.createElement('span');msg.textContent='⚠️ 雲端儲存失敗，本機進度已保留。請確認網路後重試。'+(e.message?'（'+e.message+'）':'');
+    const btn=document.createElement('button');btn.type='button';btn.textContent='🔄 重試雲端儲存';btn.style.cssText='display:block;margin:9px 0 0;padding:8px 14px;border:0;border-radius:9px;background:#87472b;color:white;cursor:pointer';
+    btn.addEventListener('click',()=>{saveAcademyCloud()});line.append(msg,btn);
+   }
+   return false;
+  }
+ })();
+ academySyncPromise=job;
+ try{return await job}finally{if(academySyncPromise===job)academySyncPromise=null}
+}
+function showComplete(){
+ $('#review').classList.remove('show');$('#game').style.display='none';$('#complete').classList.add('show');try{const key='shuowen_progress_v1';const progress=JSON.parse(localStorage.getItem(key)||'{}');if(!progress.completed||typeof progress.completed!=='object')progress.completed={};progress.completed['needle']={at:Date.now()};localStorage.setItem(key,JSON.stringify(progress));}catch(e){console.warn('書院通關紀錄未能保存',e)}const academyAward=!academyFinishShown?window.ShuowenAcademy.finish(playerName,'needle',{score:score,questionCount:scenes.length,chapterSize:CHAPTER_SIZE,noWrong:!academyRunWrong,noHint:hintUsed.size===0,sortPerfect:academyRunSortPerfect}):null;academyFinishShown=true;renderAcademyFinish(academyAward);void saveAcademyCloud();saveLeaderboardScore();$('#finalBase').textContent=baseScore;$('#finalSpeed').textContent='+'+speedBonusTotal;$('#finalCombo').textContent='+'+comboBonusTotal;$('#finalTotal').textContent=score;$('#complete .sub').textContent=playerName+'，恭喜完成挑戰！三章五柳先生生活依序呈現，以下可回顧全部4幅畫與原文。';
+ const grid=$('#completeGrid');grid.innerHTML='';
+ scenes.forEach(scene=>{const card=document.createElement('article');card.className='review-item';
+ const img=document.createElement('img');img.src=scene.src;img.alt='第'+scene.id+'句插畫';img.loading='lazy';img.decoding='async';
+ const small=document.createElement('small');small.textContent='第'+scene.id+'句｜'+chapterTitle(chapterOf(scene.id-1));
+ const para=document.createElement('p');para.textContent=scene.text;const translation=document.createElement('p');translation.className='review-translation';translation.textContent=translations[scene.id-1];card.append(img,small,para,translation);grid.append(card)});
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function nextChapter(){if(reviewChapter<CHAPTER_NAMES.length){$('#game').style.display='block';$('#review').classList.remove('show');render();window.scrollTo({top:0,behavior:'smooth'})}else{showComplete()}}
+$('#confirm').addEventListener('click',answer);$('#cancel').addEventListener('click',closePreview);$('#close').addEventListener('click',closePreview);$('#overlay').addEventListener('click',e=>{if(e.target===$('#overlay'))closePreview()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePreview();closeLeaderboard()}});$('#reset').addEventListener('click',()=>reset(true));$('#restartAll').addEventListener('click',()=>reset(true));$('#showLeaderboard').addEventListener('click',openLeaderboard);$('#startLeaderboard').addEventListener('click',openLeaderboard);$('#sortLeaderboard').addEventListener('click',openLeaderboard);$('#closeLeaderboard').addEventListener('click',closeLeaderboard);$('#leaderboardOverlay').addEventListener('click',e=>{if(e.target===$('#leaderboardOverlay'))closeLeaderboard()});$('#startGameBtn').addEventListener('click',beginForPlayer);$('#playerNameInput').addEventListener('keydown',e=>{if(e.key==='Enter')beginForPlayer()});$('#music').addEventListener('click',()=>{if(musicPlaying){setMusic(false,'gesture')}else{setMusic(true,'gesture')}});$('#again').addEventListener('click',nextChapter);$('#sound').addEventListener('click',()=>{soundOn=!soundOn;$('#sound').textContent='音效：'+(soundOn?'開':'關')});reset(false);updateMusicButton();preloadInitialAssets();if(window.ShuowenCloud.session())window.ShuowenCloud.pull().catch(e=>console.warn('學籍同步失敗',e));try{const savedName=window.ShuowenCloud.session()?.name||window.ShuowenAcademy.load().active;if(savedName){$('#playerNameInput').value=savedName;beginForPlayer();}else{$('#playerNameInput').focus();}}catch(e){$('#playerNameInput').focus();}
+
+(function(){
+ const a=document.getElementById('portalReturn');
+ if(!a)return;
+ try{
+  const stored=localStorage.getItem('shuowen_portal_url_v1');
+  if(stored){const u=new URL(stored);if(u.origin===location.origin&&/^https?:$/.test(u.protocol))a.href=u.href;}
+ }catch(e){}
+})();
+
+(function(){
+ const link=document.getElementById('portalReturn');if(!link)return;
+ let moving=false;
+ link.addEventListener('click',async e=>{
+  if(moving||!window.ShuowenCloud.session())return;
+  e.preventDefault();
+  if(link.dataset.busy==='1')return;
+  link.dataset.busy='1';
+  const old=link.textContent;link.textContent='☁️ 正在確認雲端儲存……';
+  try{
+   const ok=await saveAcademyCloud();
+   if(ok){moving=true;location.assign(link.href)}
+   else{alert('雲端尚未成功儲存，已保留本機進度。請按「重試雲端儲存」後再返回書院。')}
+  }finally{link.dataset.busy='0';link.textContent=old}
+ });
+})();
+</script></body></html>
